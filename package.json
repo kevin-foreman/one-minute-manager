@@ -1,0 +1,27 @@
+{
+  "name": "one-minute-manager",
+  "version": "1.0.0",
+  "description": "Application to manage an organization and its employees",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevin-foreman/one-minute-manager.git"
+  },
+  "author": "Kevin Foreman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kevin-foreman/one-minute-manager/issues"
+  },
+  "homepage": "https://github.com/kevin-foreman/one-minute-manager#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "express": "^4.17.3",
+    "inquirer": "^8.2.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3"
+  }
+}
