@@ -17,6 +17,7 @@
 // Display logo text, load main prompts
 // function init() {
 // const logoText = logo({ name: "Employee Manager" }).render();
+// is there a need to include a "seed" reference, or dependency in package.JSON?
 
 // 
 
