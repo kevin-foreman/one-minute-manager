@@ -1,7 +1,23 @@
-// require("console.table");
+const express = require('express');
+const route = require('./routes');
+const sequelize = require('./config/connection');
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Turn on routes an express feature to modularize the code and make it scalable
+app.use(routes);
+
 // Make queries async because MySQL exposes a .promise() function...
 // on Connections to upgrade an existing non-Promise connection to...
 // use Promises
+
+// Turn on connection to db and server
+sequelize.sync({ force: false }).then(() => {
+    app.listen(PORT, () => console.log('Now listening on port ${PORT}'));
+});
 
 // init():
 
