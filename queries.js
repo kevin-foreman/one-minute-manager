@@ -1,8 +1,9 @@
 const db = require('./config/connection.js');
 
 const showDepartment = function() {
-    db.query(
+    return await db.query(
         'SELECT * FROM `small_business_id.department`',
+
     )
 
 }

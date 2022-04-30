@@ -4,11 +4,7 @@ CREATE DATABASE small_business_db;
 
 USE small_business_db;
 
-DROP TABLE IF EXISTS department;
-
-DROP TABLE IF EXISTS role;
-
-DROP TABLE IF EXISTS employee;
+SET FOREIGN_KEY_CHECKS=0;
 
 CREATE TABLE department (
     id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -25,7 +21,7 @@ CREATE TABLE role (
     salary DECIMAL(10, 2),
 
     department_id INTEGER,
-    CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(id)
+    CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE CASCADE
 
 );
 
@@ -37,8 +33,10 @@ CREATE TABLE employee (
     last_name VARCHAR(30),
 
     role_id INTEGER,
-    CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id),
+    INDEX role_id (role_id),
+    CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
 
     manager_id INTEGER,
-    CONSTRAINT fk_employee FOREIGN KEY (manager_id) REFERENCES employee(id)
+    INDEX man_ind (manager_id),
+    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
 );

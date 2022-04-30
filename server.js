@@ -21,7 +21,7 @@ const businessPrompts = () => {
     inquirer.prompt([
         {
             type: 'list',
-            name: 'menuOption',
+            name: 'menuOptions',
             message: 'Select an option',
             choices: ['View departments', 'View roles']
         },
@@ -29,10 +29,24 @@ const businessPrompts = () => {
 
     .then(promptChoice => {
 
-        let menuOption = promptChoice.menuOption;
+        let menuOption = promptChoice.menuOptions;
 
-        console.log(promptChoice.menuOption);
+        console.log(promptChoice.menuOptions);
     };
+
+// function viewAllDepartments
+
+// function viewAllRoles
+
+// function viewAllEmployees
+
+// function addDepartment
+
+// function addRole
+
+// function addEmployee
+
+// function updateEmployeeRole
 
 
 
