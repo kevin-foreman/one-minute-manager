@@ -3,6 +3,9 @@ const route = require('./routes');
 const sequelize = require('./config/connection');
 const app = express();
 const PORT = process.env.PORT || 3001;
+const db = require('db');
+const inquirer = require('inquirer');
+const showDepartment = require('./queries');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -14,10 +17,38 @@ app.use(routes);
 // on Connections to upgrade an existing non-Promise connection to...
 // use Promises
 
-// Turn on connection to db and server
-sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => console.log('Now listening on port ${PORT}'));
-});
+const businessPrompts = () => {
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'menuOption',
+            message: 'Select an option',
+            choices: ['View departments', 'View roles']
+        },
+    ])
+
+    .then(promptChoice => {
+
+        let menuOption = promptChoice.menuOption;
+
+        console.log(promptChoice.menuOption);
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+// // Turn on connection to db and server
+// sequelize.sync({ force: false }).then(() => {
+//     app.listen(PORT, () => console.log('Now listening on port ${PORT}'));
+// });
 
 // init():
 
@@ -38,7 +69,7 @@ sequelize.sync({ force: false }).then(() => {
 // 
 
 
-// Example prompts for Mod 12 challenge
+// Example prompts
 // 1. What would you like to do? (Use arrow keys)
 // 2. View all employees
 // --> if I select an employee then determine what department they work in
