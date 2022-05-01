@@ -1,17 +1,10 @@
 const express = require('express');
-const route = require('./routes');
-const sequelize = require('./config/connection');
+// const sequelize = require('./config/connection');
 const app = express();
 const PORT = process.env.PORT || 3001;
-const db = require('db');
 const inquirer = require('inquirer');
-const showDepartment = require('./queries');
+const showAllDepartments = require('./queries');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Turn on routes an express feature to modularize the code and make it scalable
-app.use(routes);
 
 // Make queries async because MySQL exposes a .promise() function...
 // on Connections to upgrade an existing non-Promise connection to...
@@ -23,16 +16,17 @@ const businessPrompts = () => {
             type: 'list',
             name: 'menuOptions',
             message: 'Select an option',
-            choices: ['View departments', 'View roles']
-        },
-    ])
-
-    .then(promptChoice => {
+            choices: ['View departments',
+            'View roles']
+        }
+    ]).then(promptChoice => {
 
         let menuOption = promptChoice.menuOptions;
 
         console.log(promptChoice.menuOptions);
-    };
+    });
+
+};
 
 // function viewAllDepartments
 
@@ -49,6 +43,7 @@ const businessPrompts = () => {
 // function updateEmployeeRole
 
 
+businessPrompts();
 
 
 
@@ -58,11 +53,6 @@ const businessPrompts = () => {
 
 
 
-
-// // Turn on connection to db and server
-// sequelize.sync({ force: false }).then(() => {
-//     app.listen(PORT, () => console.log('Now listening on port ${PORT}'));
-// });
 
 // init():
 

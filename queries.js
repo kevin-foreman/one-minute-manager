@@ -9,9 +9,10 @@ const cTable = require('console.table');
 // example: SELECT * FROM db WHERE X = Y
 
 // Need a function for each of the responses
-// 
+
+// First prompt the user will see
 const showAllDepartments = function() {
-    return await db.query(
+    return db.query(
         'SELECT * FROM `small_business_id.department`',
 
         // use JOIN statements to define the table
@@ -22,14 +23,16 @@ const showAllDepartments = function() {
 
 };
 
+// Second prompt option
 const showAllRoles = function() {
-    return await db.query(
+    return db.query(
         `SELECT * FROM 'small_business_id.roles'`
     )
 };
 
+// Third 'show' prompt option
 const showAllEmployees = function() {
-    return await db.query(
+    return db.query(
 
         `SELECT E.id,
         E.first_name,
@@ -51,7 +54,8 @@ const showAllEmployees = function() {
             // return;
 
         // add JOIN statments to structure
-    )
+        })
+    
 };
 
 module.exports = { showAllDepartments, showAllEmployees, showAllRoles }
