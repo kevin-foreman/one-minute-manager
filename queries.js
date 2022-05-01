@@ -1,6 +1,6 @@
 const db = require('./config/connection.js');
 const cTable = require('console.table');
-
+const businessPrompts = require('./server')
 // create classes to hold various sections of the business
 // constructor function
 
