@@ -1,9 +1,8 @@
-const express = require('express');
-// const sequelize = require('./config/connection');
-const app = express();
+const mysql = require('mysql2');
 const PORT = process.env.PORT || 3001;
 const inquirer = require('inquirer');
-const showAllDepartments = require('./queries');
+const db = require('./config/connection');
+const showAllDepartments = require('./models/queries');
 
 
 // Make queries async because MySQL exposes a .promise() function...
@@ -11,22 +10,32 @@ const showAllDepartments = require('./queries');
 // use Promises
 
 const businessPrompts = () => {
+
     inquirer.prompt([
+
         {
             type: 'list',
             name: 'menuOptions',
             message: 'Select an option',
-            choices: ['View departments',
-            'View roles']
-        }
-    ]).then(promptChoice => {
+            choices: ['View All departments',
+            'View All roles',
+            'View All Employees',
+            'Add a department',
+            'Add a role',
+            'Add an Employee',
+            'Update an employee role',],
+        },
+    ]).then((promptChoice) => {
 
         let menuOption = promptChoice.menuOptions;
 
         console.log(promptChoice.menuOptions);
+        db.query;
     });
 
 };
+
+businessPrompts();
 
 // function viewAllDepartments
 
@@ -43,7 +52,7 @@ const businessPrompts = () => {
 // function updateEmployeeRole
 
 
-businessPrompts();
+
 
 
 

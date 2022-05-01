@@ -1,6 +1,6 @@
-const db = require('./config/connection.js');
+const db = require('../config/connection.js');
 const cTable = require('console.table');
-const businessPrompts = require('./server')
+const businessPrompts = require('../server')
 // create classes to hold various sections of the business
 // constructor function
 
@@ -10,10 +10,14 @@ const businessPrompts = require('./server')
 
 // Need a function for each of the responses
 
-// First prompt the user will see
+// Make the first prompt the user will have access to
 const showAllDepartments = function() {
-    return db.query(
-        'SELECT * FROM `small_business_id.department`',
+    db.query(
+        'SELECT * FROM `table` WHERE `name` = "department"',
+
+        function(err, results) {
+            console.log(results);
+        }
 
         // use JOIN statements to define the table
 
@@ -25,14 +29,21 @@ const showAllDepartments = function() {
 
 // Second prompt option
 const showAllRoles = function() {
-    return db.query(
-        `SELECT * FROM 'small_business_id.roles'`
-    )
+    db.query(
+        'SELECT * FROM `table` WHERE `name` = "role"',
+
+        function(err, results) {
+            console.log(results);
+            console.table(results);
+        }
+    
+    
+    );
 };
 
 // Third 'show' prompt option
 const showAllEmployees = function() {
-    return db.query(
+    db.query(
 
         `SELECT E.id,
         E.first_name,
@@ -44,17 +55,14 @@ const showAllEmployees = function() {
         JOIN role R ON E.role_id = R.id,
         JOIN department D ON R.department_id = D.id,
         LEFT OUTER JOIN employee M ON E.manager_id = M.id;`,
-        (err, results) => {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            console.table
+        function(err, results) {
             
-            // return;
+                console.log(results);
+                console.table(results);
+            }
 
         // add JOIN statments to structure
-        })
+        );
     
 };
 
