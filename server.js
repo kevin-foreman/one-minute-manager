@@ -35,12 +35,12 @@ const businessPrompts = () => {
             name: 'menuOptions',
             message: 'Select an option',
             choices: ['View All departments',
-            'View All roles',
+            'View All Roles',
             'View All Employees',
-            'Add a department',
-            'Add a role',
+            'Add a Department',
+            'Add a Role',
             'Add an Employee',
-            'Update an employee role',],
+            'Update an Employee Role',],
         },
     ]).then((promptChoice) => {
 
@@ -58,22 +58,53 @@ const showAllDepartments = () => {
 
     const sql = `SELECT * FROM department`;
 
-    db.query(sql, (err, rows) => {
+    db.query(sql, (err, results) => {
 
         if (err) throw err;
 
-        console.log(rows);
+        // console.log(results);
 
-        console.table(rows);
+        console.table(results);
 
         businessPrompts();
     });
 };
 
-
+// Second prompt option
 // function viewAllRoles
+const showAllRoles = () => {
 
+    const sql = `SELECT * FROM role`;
+
+    db.query(sql, (err, results) => {
+
+        if (err) throw err;
+
+        // console.log(results);
+        
+        console.table(results);
+
+        businessPrompts();
+    });
+};
+
+// Third 'show' prompt option
 // function viewAllEmployees
+
+const showAllEmployees = function() {
+
+    const sql = `SELECT * FROM employee`
+
+    db.query(sql, (err, results) => {
+
+        if (err) throw err;
+            
+        // console.log(results);
+        console.table(results);
+
+        });
+    
+};
 
 // function addDepartment
 
