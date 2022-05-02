@@ -186,13 +186,13 @@ const addRole = () => {
             console.table(response);
             
             // call in the function to prompt the user to build out the role's attributes
-            addRoleSections(department);
+            addRoleAttributes(department);
 
         });
     }
 
 // secondary function to prompt the user to create the role
-const addRoleSections = (department) => {
+const addRoleAttributes = (department) => {
 
     inquirer.prompt([
         {
@@ -234,33 +234,101 @@ const addRoleSections = (department) => {
 // function to addEmployee to the database
 const addEmployee = () => {
 
-        const query = `SELECT department.id,
-        department.name,
+        const query = `SELECT role.id,
+        role.title,
         role.salary
-        FROM employee
-        JOIN role ON employee.role_id = role.id
-        JOIN department ON department.id = role.department_id
-        GROUP BY department.id, department.name`
+        FROM role`
 
         db.query(query, (err, response) => {
-
             if(err) throw err;
 
-            const department = response.map(({ id, name }) => ({
+            // define and map the attributes (do this for each attribute)
+            const role = response.map(({ id, title, salary}) => ({
 
-            value: id,
-
-            name: `${id} ${name}`
-
+                value: id,
+                title: `${title}`,
+                salary: `${salary}`
             }));
 
             console.table(response);
-            
-            // call in the function to prompt the user to build out the role's attributes
-            addRoleSections(department);
-
+            addEmployeeRole(role);
         });
     }
+
+    // addEmployeeRole function will add specific data to the table
+const addEmployeeRole(role) => {
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'firstName',
+            messaage: 'Employee first name: '
+        },
+        {
+            type: 'input',
+            name: 'lastName',
+            message 'Employee last name: '
+        },
+        {
+            type: 'list',
+            name: 'roleId',
+            message: 'Employee role: ',
+            choices: role
+        }
+    ]).then((response) => {
+
+        const query = `INSERT INTO employee SET ?`
+
+        db.query(query, {
+            first_name: response.firstName,
+            last_name: response.lastName,
+            role_id: response.roleId
+        }, (err, response) => {
+            businessPrompts();
+        });
+    });
+}
+
+
+// Add attributes to the employee the user wants to add
+const addEmployeeAttributes = (department) => {
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'title',
+            message: 'Role title: '
+        },
+
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'Role salary: '
+        },
+        {
+            type: 'list',
+            name: 'department',
+            message: 'Role department: ',
+            choices: department
+        },
+    ]).then((response) => {
+    const query = `INSERT INTO role SET ?`;
+    
+    db.query(query, {
+
+        title: response.title,
+        salary: response.salary,
+        department_id: response.department
+
+    }, (err, response) => {
+
+        if(err) throw err;
+
+        businessPrompts();
+
+        });
+    });
+}
 
 // function updateEmployeeRole in the database
 
