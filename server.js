@@ -229,8 +229,9 @@ const addRoleAttributes = (department) => {
 
         });
     });
-}
 
+}
+// **************************** //
 // function to addEmployee to the database
 const addEmployee = () => {
 
@@ -255,7 +256,8 @@ const addEmployee = () => {
         });
     }
 
-    // addEmployeeRole function will add specific data to the table
+// addEmployeeRole function will add specific data to the table
+// Add attributes to the employee the user wants to add
 const addEmployeeRole(role) => {
 
     inquirer.prompt([
@@ -290,47 +292,30 @@ const addEmployeeRole(role) => {
 }
 
 
-// Add attributes to the employee the user wants to add
-const addEmployeeAttributes = (department) => {
-
-    inquirer.prompt([
-        {
-            type: 'input',
-            name: 'title',
-            message: 'Role title: '
-        },
-
-        {
-            type: 'input',
-            name: 'salary',
-            message: 'Role salary: '
-        },
-        {
-            type: 'list',
-            name: 'department',
-            message: 'Role department: ',
-            choices: department
-        },
-    ]).then((response) => {
-    const query = `INSERT INTO role SET ?`;
-    
-    db.query(query, {
-
-        title: response.title,
-        salary: response.salary,
-        department_id: response.department
-
-    }, (err, response) => {
-
-        if(err) throw err;
-
-        businessPrompts();
-
-        });
-    });
-}
-
 // function updateEmployeeRole in the database
+// Should look something like this...
+// const addEmployee = () => {
+
+//     const query = `SELECT role.id,
+//     role.title,
+//     role.salary
+//     FROM role`
+
+//     db.query(query, (err, response) => {
+//         if(err) throw err;
+
+//         // define and map the attributes (do this for each attribute)
+//         const role = response.map(({ id, title, salary}) => ({
+
+//             value: id,
+//             title: `${title}`,
+//             salary: `${salary}`
+//         }));
+
+//         console.table(response);
+//         addEmployeeRole(role);
+//     });
+// }
 
 
 
