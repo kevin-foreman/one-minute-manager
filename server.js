@@ -165,16 +165,17 @@ const addRole = () => {
 
         const query = `SELECT department.id,
         department.name,
-        role.salary FROM employee
+        role.salary
+        FROM employee
         JOIN role ON employee.role_id = role.id
-        JOIN department ON departmet.id = role.department.id
+        JOIN department ON department.id = role.department_id
         GROUP BY department.id, department.name`
 
         db.query(query, (err, response) => {
 
             if(err) throw err;
 
-            const department = results.map(({ id, name }) => ({
+            const department = response.map(({ id, name }) => ({
 
             value: id,
 
@@ -185,12 +186,49 @@ const addRole = () => {
             console.table(response);
             
             // call in the function to prompt the user to build out the role's attributes
-            addRoleTo(department);
+            addRoleSections(department);
 
         });
     }
 
 // secondary function to prompt the user to create the role
+const addRoleSections = (department) => {
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'title',
+            message: 'Role title: '
+        },
+
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'Role salary: '
+        },
+        {
+            type: 'list',
+            name: 'department: ',
+            choices: department
+        },
+    ]).then((response) => {
+    const query = `INSERT INTO role SET ?`;
+    
+    db.query(query, {
+
+        title: response.title,
+        salary: response.salary,
+        department_id: response.department
+
+    }, (err, response) => {
+
+        if(err) throw err;
+
+        businessPrompts();
+
+        });
+    });
+}
 
 // function to addEmployee to the database
 // const addEmployee = () => {
