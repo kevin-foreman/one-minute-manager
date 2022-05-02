@@ -34,7 +34,7 @@ const businessPrompts = () => {
             type: 'list',
             name: 'menuOptions',
             message: 'Select an option',
-            choices: ['View All departments',
+            choices: ['View All Departments',
             'View All Roles',
             'View All Employees',
             'Add a Department',
@@ -67,13 +67,13 @@ const showAllDepartments = () => {
 
     const sql = `SELECT * FROM department`;
 
-    db.query(sql, (err, results) => {
+    db.query(sql, (err, response) => {
 
         if (err) throw err;
 
-        // console.log(results);
+        // console.log(rows);
 
-        console.table(results);
+        console.table(response);
 
         businessPrompts();
     });
