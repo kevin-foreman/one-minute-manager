@@ -164,10 +164,13 @@ const addRole = () => {
 
     inquirer.prompt([
         {
-            type: 'input',
-            name: 'name',
-            message: 'Role Name: '
-        }
+            type: 'list',
+            name: 'roleOptions',
+            message: 'Select options for the role',
+            choices: ['Enter the name of the role',
+            'Enter the salary of the role',
+            'Enter the department of the role',],
+        },
     ]).then((response) => {
 
         const query = `INSERT INTO role SET ?`;
@@ -185,6 +188,29 @@ const addRole = () => {
 }
 
 // function to addEmployee to the database
+// const addEmployee = () => {
+
+//     inquirer.prompt([
+//         {
+//             type: 'input',
+//             name: 'name',
+//             message: 'Employee Name: '
+//         }
+//     ]).then((response) => {
+
+//         const query = `INSERT INTO role SET ?`;
+
+//         db.query(query, {name: response.name}, (err, response) => {
+//             if(err) throw err;
+
+//             console.table(response);
+
+//             businessPrompts();
+
+//         });
+//     });
+
+// }
 
 // function updateEmployeeRole in the database
 
