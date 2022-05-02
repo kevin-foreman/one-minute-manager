@@ -42,12 +42,21 @@ const businessPrompts = () => {
             'Add an Employee',
             'Update an Employee Role',],
         },
-    ]).then((promptChoice) => {
+    ]).then((response) => {
 
-        let menuOption = promptChoice.menuOptions;
+        switch (response.menuOptions) {
+            case 'View All Departments':
+            showAllDepartments();
+            break;
+            case 'View All Roles':
+            showAllRoles();
+            break;
+        }
 
-        console.log(promptChoice.menuOptions);
-        db.query;
+        // let menuOption = promptChoice.menuOptions;
+
+        // console.log(promptChoice.menuOptions);
+        // db.query;
     });
 
 };
