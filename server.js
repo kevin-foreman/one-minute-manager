@@ -160,32 +160,37 @@ const addDepartment = () => {
 }
 
 // function to addRole to the database
+// first function will call on the next function to complete the addition
 const addRole = () => {
 
-    inquirer.prompt([
-        {
-            type: 'list',
-            name: 'roleOptions',
-            message: 'Select options for the role',
-            choices: ['Enter the name of the role',
-            'Enter the salary of the role',
-            'Enter the department of the role',],
-        },
-    ]).then((response) => {
+        const query = `SELECT department.id,
+        department.name,
+        role.salary FROM employee
+        JOIN role ON employee.role_id = role.id
+        JOIN department ON departmet.id = role.department.id
+        GROUP BY department.id, department.name`
 
-        const query = `INSERT INTO role SET ?`;
+        db.query(query, (err, response) => {
 
-        db.query(query, {name: response.name}, (err, response) => {
             if(err) throw err;
 
-            console.table(response);
+            const department = results.map(({ id, name }) => ({
 
-            businessPrompts();
+            value: id,
+
+            name: `${id} ${name}`
+
+            }));
+
+            console.table(response);
+            
+            // call in the function to prompt the user to build out the role's attributes
+            addRoleTo(department);
 
         });
-    });
+    }
 
-}
+// secondary function to prompt the user to create the role
 
 // function to addEmployee to the database
 // const addEmployee = () => {
