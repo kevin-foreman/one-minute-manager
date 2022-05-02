@@ -34,7 +34,7 @@ kevin.o.foreman2@gmail.com / kevin-foreman (GitHub)
 
 ## License
 
-The license used for this project is 
+The license used for this project is AGPL v3.
 
 ## Screenshot
 ![alt text](assets/images/screenshot.png)
