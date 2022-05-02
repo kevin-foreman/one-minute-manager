@@ -51,6 +51,11 @@ const businessPrompts = () => {
             case 'View All Roles':
             showAllRoles();
             break;
+            case  'View All Employees':
+            showAllEmployees();
+            break;
+            case  'Add a Department':
+            
         }
 
         // let menuOption = promptChoice.menuOptions;
@@ -110,6 +115,8 @@ const showAllEmployees = function() {
             
         // console.log(results);
         console.table(results);
+
+        businessPrompts();
 
         });
     
