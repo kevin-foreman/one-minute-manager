@@ -61,6 +61,9 @@ const businessPrompts = () => {
             case 'Add a Role':
             addRole();
             break;
+            case 'Add en Employee'
+            addEmployee();
+            break;
             
         }
 
@@ -158,7 +161,7 @@ const addDepartment = () => {
     });
 
 }
-
+// *************************************** //
 // function to addRole to the database
 // first function will call on the next function to complete the addition
 const addRole = () => {
@@ -294,22 +297,25 @@ const addEmployeeRole(role) => {
 
 // function updateEmployeeRole in the database
 // Should look something like this...
-// const addEmployee = () => {
+// function updateEmployeeRole(){
+//    let query = `SELECT 
+//                   employee.id,
+//                   employee.first_name, 
+//                   employee.last_name, 
+//                   role.title, 
+//                   department.name, 
+//                   role.salary, 
 
-//     const query = `SELECT role.id,
-//     role.title,
-//     role.salary
-//     FROM role`
+                    // Use CONCAT to add the information to existing additions
 
-//     db.query(query, (err, response) => {
-//         if(err) throw err;
-
-//         // define and map the attributes (do this for each attribute)
-//         const role = response.map(({ id, title, salary}) => ({
-
-//             value: id,
-//             title: `${title}`,
-//             salary: `${salary}`
+//                   CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+//                FROM employee
+//                JOIN role
+//                    ON employee.role_id = role.id
+//                JOIN department
+//                    ON department.id = role.department_id
+//               JOIN employee manager
+//                    ON manager.id = employee.manager_id`
 //         }));
 
 //         console.table(response);
