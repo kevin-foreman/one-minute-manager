@@ -1,6 +1,6 @@
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
-const Connection = require('mysql2/typings/mysql/lib/Connection');
+// const Connection = require('mysql2/typings/mysql/lib/Connection');
 require('dotenv').config();
 require('console.table');
 
@@ -56,6 +56,8 @@ const businessPrompts = () => {
             showAllEmployees();
             break;
             case  'Add a Department':
+            addDepartment();
+            break;
             
         }
 
@@ -134,15 +136,14 @@ const addDepartment = () => {
         }
     ]).then((response) => {
 
-        db.query = `INSERT INTO department SET ?`;
+        const query = `INSERT INTO department SET ?`;
 
-        connection.query(query, {name: response.name}, (err, response) => {
+        db.query(query, {name: response.name}, (err, response) => {
             if(err) throw err;
 
             console.table(response);
 
             businessPrompts();
-
 
         });
     });
@@ -164,35 +165,4 @@ const addDepartment = () => {
 
 
 
-
-
-
-// init():
-
-           // Create the routes in this file to connect:
-           // app.get for a route to the index.html
-           // app.get for a route to the notes.html
-
-           // app.post and/or app.use to handle a user's input
-           // user's input must add the note data to the pre-existing JSON file (db.json)
-
-// console application
-
-// Display logo text, load main prompts
-// function init() {
-// const logoText = logo({ name: "Employee Manager" }).render();
-// is there a need to include a "seed" reference, or dependency in package.JSON?
-
-// 
-
-
-// Example prompts
-// 1. What would you like to do? (Use arrow keys)
-// 2. View all employees
-// --> if I select an employee then determine what department they work in
-// --> if I want to delete an employee, what else do I need to delete? (anything?)
-// 3. View all employees by department
-// 4. View all employees by manager
-
-// }
 
