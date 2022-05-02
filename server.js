@@ -1,5 +1,6 @@
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
+const Connection = require('mysql2/typings/mysql/lib/Connection');
 require('dotenv').config();
 require('console.table');
 
@@ -90,13 +91,13 @@ const showAllRoles = () => {
 
     const sql = `SELECT * FROM role`;
 
-    db.query(sql, (err, results) => {
+    db.query(sql, (err, response) => {
 
         if (err) throw err;
 
         // console.log(results);
         
-        console.table(results);
+        console.table(response);
 
         businessPrompts();
     });
@@ -105,16 +106,16 @@ const showAllRoles = () => {
 // Third 'show' prompt option
 // function viewAllEmployees
 
-const showAllEmployees = function() {
+const showAllEmployees = () => {
 
     const sql = `SELECT * FROM employee`
 
-    db.query(sql, (err, results) => {
+    db.query(sql, (err, response) => {
 
         if (err) throw err;
             
         // console.log(results);
-        console.table(results);
+        console.table(response);
 
         businessPrompts();
 
@@ -122,13 +123,37 @@ const showAllEmployees = function() {
     
 };
 
-// function addDepartment
+// function to addDepartment to the database
+const addDepartment = () => {
 
-// function addRole
+    inquirer.prompt([
+        {
+            type: 'inmput',
+            name: 'name',
+            message: 'Department Name: '
+        }
+    ]).then((response) => {
 
-// function addEmployee
+        db.query = `INSERT INTO department SET ?`;
 
-// function updateEmployeeRole
+        connection.query(query, {name: response.name}, (err, response) => {
+            if(err) throw err;
+
+            console.table(response);
+
+            businessPrompts();
+
+
+        });
+    });
+
+}
+
+// function to addRole to the database
+
+// function to addEmployee to the database
+
+// function updateEmployeeRole in the database
 
 
 
