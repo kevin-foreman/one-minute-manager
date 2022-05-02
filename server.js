@@ -1,11 +1,27 @@
 const mysql = require('mysql2');
-const PORT = process.env.PORT || 3001;
 const inquirer = require('inquirer');
-const db = require('./config/connection');
-const showAllDepartments = require('./models/queries');
+require('dotenv').config();
 
+// Establish a connection to the mysql server
+const db = mysql.createConnection({
 
-// Make queries async because MySQL exposes a .promise() function...
+        host: 'localhost',
+        username: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        // port: 3306
+
+    })
+
+db.connect(function (err) {
+
+    if (err) throw err;
+    console.log('Now connected to the small business database')
+    businessPrompts();
+
+});
+
+// Try to make queries async because MySQL exposes a .promise() function...
 // on Connections to upgrade an existing non-Promise connection to...
 // use Promises
 
@@ -35,9 +51,20 @@ const businessPrompts = () => {
 
 };
 
-businessPrompts();
+// Make the first prompt the user will have access to
+// function to allow user to viewAllDepartments
+const showAllDepartments = () => {
 
-// function viewAllDepartments
+    const sql = `SELECT * FROM department`;
+
+    db.query(sql, (err, rows) => {
+        if (err) throw err;
+        console.log(rows);
+        console.table(rows);
+        businessPrompts();
+    });
+};
+
 
 // function viewAllRoles
 

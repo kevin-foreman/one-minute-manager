@@ -8,24 +8,7 @@ const businessPrompts = require('../server')
 // variables can also return select bits of a table
 // example: SELECT * FROM db WHERE X = Y
 
-// Need a function for each of the responses
 
-// Make the first prompt the user will have access to
-const showAllDepartments = function() {
-    db.query(
-        'SELECT * FROM `table` WHERE `name` = "department"',
-
-        function(err, results) {
-            console.log(results);
-        }
-
-        // use JOIN statements to define the table
-
-        // use console.table to display correctly
-
-    )
-
-};
 
 // Second prompt option
 const showAllRoles = function() {
