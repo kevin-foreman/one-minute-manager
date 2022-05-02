@@ -58,6 +58,9 @@ const businessPrompts = () => {
             case  'Add a Department':
             addDepartment();
             break;
+            case 'Add a Role':
+            addRole();
+            break;
             
         }
 
@@ -75,6 +78,8 @@ const showAllDepartments = () => {
 
     const sql = `SELECT * FROM department`;
 
+    // include JOIN statements
+
     db.query(sql, (err, response) => {
 
         if (err) throw err;
@@ -91,7 +96,11 @@ const showAllDepartments = () => {
 // function viewAllRoles
 const showAllRoles = () => {
 
-    const sql = `SELECT * FROM role`;
+    const sql = `SELECT role.*, department.name
+    AS department_id
+    FROM role
+    LEFT JOIN department
+    ON role.department_id = department.id`;
 
     db.query(sql, (err, response) => {
 
@@ -130,7 +139,7 @@ const addDepartment = () => {
 
     inquirer.prompt([
         {
-            type: 'inmput',
+            type: 'input',
             name: 'name',
             message: 'Department Name: '
         }
@@ -151,6 +160,29 @@ const addDepartment = () => {
 }
 
 // function to addRole to the database
+const addRole = () => {
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Role Name: '
+        }
+    ]).then((response) => {
+
+        const query = `INSERT INTO role SET ?`;
+
+        db.query(query, {name: response.name}, (err, response) => {
+            if(err) throw err;
+
+            console.table(response);
+
+            businessPrompts();
+
+        });
+    });
+
+}
 
 // function to addEmployee to the database
 
