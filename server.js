@@ -1,15 +1,16 @@
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
 require('dotenv').config();
+require('console.table');
 
 // Establish a connection to the mysql server
 const db = mysql.createConnection({
 
         host: 'localhost',
-        username: process.env.DB_USER,
+        user: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
-        // port: 3306
+        port: 3306
 
     })
 
@@ -58,9 +59,13 @@ const showAllDepartments = () => {
     const sql = `SELECT * FROM department`;
 
     db.query(sql, (err, rows) => {
+
         if (err) throw err;
+
         console.log(rows);
+
         console.table(rows);
+
         businessPrompts();
     });
 };
