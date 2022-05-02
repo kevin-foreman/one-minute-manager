@@ -78,8 +78,6 @@ const showAllDepartments = () => {
 
     const sql = `SELECT * FROM department`;
 
-    // include JOIN statements
-
     db.query(sql, (err, response) => {
 
         if (err) throw err;
@@ -93,8 +91,10 @@ const showAllDepartments = () => {
 };
 
 // Second prompt option
-// function viewAllRoles
+// function showAllRoles
 const showAllRoles = () => {
+
+      // include JOIN statements
 
     const sql = `SELECT role.*, department.name
     AS department_id
@@ -255,8 +255,8 @@ const addEmployee = () => {
         });
     }
 
-    // addEmployeeRole function will add specific data to the table
-const addEmployeeRole(role) => {
+    // addEmployeeRole function will add attribute data to the table
+const addEmployeeRole = (role) => {
 
     inquirer.prompt([
         {
@@ -267,7 +267,7 @@ const addEmployeeRole(role) => {
         {
             type: 'input',
             name: 'lastName',
-            message 'Employee last name: '
+            message: 'Employee last name: '
         },
         {
             type: 'list',
@@ -331,14 +331,3 @@ const addEmployeeAttributes = (department) => {
 }
 
 // function updateEmployeeRole in the database
-
-
-
-
-
-
-
-
-
-
-
