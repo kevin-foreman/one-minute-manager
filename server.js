@@ -208,7 +208,8 @@ const addRoleSections = (department) => {
         },
         {
             type: 'list',
-            name: 'department: ',
+            name: 'department',
+            message: 'Role department: ',
             choices: department
         },
     ]).then((response) => {
@@ -231,29 +232,35 @@ const addRoleSections = (department) => {
 }
 
 // function to addEmployee to the database
-// const addEmployee = () => {
+const addEmployee = () => {
 
-//     inquirer.prompt([
-//         {
-//             type: 'input',
-//             name: 'name',
-//             message: 'Employee Name: '
-//         }
-//     ]).then((response) => {
+        const query = `SELECT department.id,
+        department.name,
+        role.salary
+        FROM employee
+        JOIN role ON employee.role_id = role.id
+        JOIN department ON department.id = role.department_id
+        GROUP BY department.id, department.name`
 
-//         const query = `INSERT INTO role SET ?`;
+        db.query(query, (err, response) => {
 
-//         db.query(query, {name: response.name}, (err, response) => {
-//             if(err) throw err;
+            if(err) throw err;
 
-//             console.table(response);
+            const department = response.map(({ id, name }) => ({
 
-//             businessPrompts();
+            value: id,
 
-//         });
-//     });
+            name: `${id} ${name}`
 
-// }
+            }));
+
+            console.table(response);
+            
+            // call in the function to prompt the user to build out the role's attributes
+            addRoleSections(department);
+
+        });
+    }
 
 // function updateEmployeeRole in the database
 
